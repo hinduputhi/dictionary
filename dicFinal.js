@@ -27216,11 +27216,18 @@ document.addEventListener('DOMContentLoaded', () => {
       // Add more words and definitions as needed
     };
 
-   const meaning = wordDatabase[word];
-    if (meaning) {
-      definitionElement.textContent = meaning;
+   const matchingWords = Object.keys(wordDatabase).filter(
+      key => key.toLowerCase().includes(word.toLowerCase())
+    );
+
+    if (matchingWords.length > 0) {
+      const definitions = matchingWords.map(key => {
+        const definition = wordDatabase[key];
+        return `<p class="bnword">${key}:</p> <p class="bnmeaning">${definition}</p>`;
+      });
+      definitionElement.innerHTML = `${definitions.join('\n')}`;
     } else {
-      definitionElement.textContent = "অর্থ পাওয়া যায়নি।";
+      definitionElement.textContent = 'কোন অর্থ খুঁজে পাওয়া যায় নি।';
     }
   }
 });
