@@ -2,11 +2,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const selectedWordElement = document.getElementById('selected-word');
   const definitionElement = document.getElementById('definition');
 
-  document.addEventListener('mouseup', () => {
-    const selectedText = window.getSelection().toString().trim();
+  // selectionchange ইভেন্ট মোবাইল ও ডেস্কটপ উভয় ক্ষেত্রেই ভালো কাজ করে
+  document.addEventListener('selectionchange', () => {
+    const selection = window.getSelection();
+    const selectedText = selection.toString().trim();
+
+    // শুধুমাত্র তখনই কাজ করবে যখন ইউজার সিলেকশন শেষ করবে এবং টেক্সট খালি থাকবে না
     if (selectedText !== '') {
-      selectedWordElement.textContent = `নির্বাচিত শব্দ: ${selectedText}`;
-      fetchDefinition(selectedText);
+      // একটি ছোট টাইমআউট দিলে মোবাইল ব্রাউজারের হ্যান্ডেল টানার সময় সুবিধা হয়
+      clearTimeout(window.selectionTimeout);
+      window.selectionTimeout = setTimeout(() => {
+        selectedWordElement.textContent = `নির্বাচিত শব্দ: ${selectedText}`;
+        fetchDefinition(selectedText);
+      }, 500); // ৫০০ মিলিসেকেন্ড অপেক্ষা করবে সিলেকশন স্থিতিশীল হওয়ার জন্য
     } else {
       selectedWordElement.textContent = '';
       definitionElement.textContent = '';
@@ -14,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function fetchDefinition(word) {
-    // Local word database
+    // আপনার বিদ্যমান wordDatabase এখানে থাকবে
     const wordDatabase = {
    
       "অ১":	"বি বাংলা স্বরবর্ণের প্রথম বর্ণ।",
@@ -16198,18 +16206,11 @@ document.addEventListener('DOMContentLoaded', () => {
       // Add more words and definitions as needed
     };
 
-   const matchingWords = Object.keys(wordDatabase).filter(
-      key => key.toLowerCase().includes(word.toLowerCase())
-    );
-
-    if (matchingWords.length > 0) {
-      const definitions = matchingWords.map(key => {
-        const definition = wordDatabase[key];
-        return `<p>${key}: ${definition}</p>`;
-      });
-      definitionElement.innerHTML = `${definitions.join('\n')}`;
+   const meaning = wordDatabase[word];
+    if (meaning) {
+      definitionElement.textContent = meaning;
     } else {
-      definitionElement.textContent = 'কোন অর্থ খুঁজে পাওয়া যায় নি।';
+      definitionElement.textContent = "অর্থ পাওয়া যায়নি।";
     }
   }
 });
