@@ -17081,7 +17081,6 @@ document.addEventListener('DOMContentLoaded', () => {
 "করোত্তাপ": "দ্র কর",
 "করোনা": "[ই] (বিশেষ্য) পূর্ণগ্রাস সূর্যগ্রহণের সময় অন্ধকারাচ্ছন্ন সূর্যবৃত্তের চারদিকে দেখতে পাওয়া উজ্জ্বল আলোকছটা।",
 "কর্ক": "[ই] ১ (বিশেষ্য) বোতলের ছিপি। ২ (বিশেষ্য) গাছবিশেষ যা দিয়ে ছিপি তৈরি হয়; শোলা।",
-"কর্কমোড়া": 
 "কর্কমোড়া": "[ই কর্ক+মোড়া] (বিশেষণ) বদ্ধ।",
 "কর্ক-স্ক্রু": "[ই] (বিশেষ্য) ছিপি খোলার যন্ত্র।",
 "কর্কক": "[স কর্কট] (বিশেষ্য) কাঁকড়া।",
@@ -18225,7 +18224,6 @@ document.addEventListener('DOMContentLoaded', () => {
 "করু": "১ (ক্রিয়া) করো। ২ (ক্রিয়া) করে। ৩ (ক্রিয়া) করলাম। ৪ (ক্রিয়া) করি।",
 "কলহাস্তা": "[স কলহান্তরিতা] (বিশেষ্য) যে নায়িকা প্রিয়কে ত্যাগ ক'রে পরে অনুতাপ করে।",
 "করুন": "(ক্রিয়া) যা করেন।",
-"করুবা": 
 "কলহাস্পদ": "[স] (বিশেষণ) ঝগড়াটে।",
 "করুবা": "(ক্রিয়া) করবে।",
 "কর": "(ক্রিয়া) করুক।",
@@ -27202,20 +27200,20 @@ document.addEventListener('DOMContentLoaded', () => {
 "ক্ষিরচাপা":"[স ক্ষীর>] (বিশেষ্য) মিঠাইবিশেষ।",
 "খীকার":"[হি খাঁখার>] (বিশেষ্য) কলঙ্ক।",
 
-      
+
 
 	  
       // Add more words and definitions as needed
     };
 
-   const matchingWords = Object.keys(wordDatabase).filter(
+  const matchingWords = Object.keys(wordDatabase).filter(
       key => key.toLowerCase().includes(word.toLowerCase())
     );
 
     if (matchingWords.length > 0) {
       const definitions = matchingWords.map(key => {
         const definition = wordDatabase[key];
-        return `<p class="bnword">${key}:</p> <p class="bnmeaning">${definition}</p>`;
+        return `<p>${key}: ${definition}</p>`;
       });
       definitionElement.innerHTML = `${definitions.join('\n')}`;
     } else {
